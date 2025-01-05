@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Android_Project</string>
     <string name="title_activity_products_view">ProductsView</string>
+    <string name="delete_food">Delete Food</string>
+
+    <string name="category_soda">Sodas</string>
+    <string name="category_beer">Beers</string>
+    <string name="category_wine">Wines</string>
+    <string name="category_champagne">Champagnes</string>
+    <string name="category_snack">Snacks</string>
+    <string name="category_dessert">Desserts</string>
+    <string name="category_appetizer">Appetizers</string>
+    <string name="category_main_course">Main Course</string>
 </resources>
