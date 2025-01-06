@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
+import com.example.android_project.data.source.FoodDao
 import com.example.android_project.utils.FoodException
 import com.example.android_project.utils.addOrUpdateFood
 import com.example.android_project.utils.getFoodItem
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 
-class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
+class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel() {
 
     private val _food = mutableStateOf(FoodVM())
     val foodVM: State<FoodVM> = _food
@@ -22,7 +23,10 @@ class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
     val eventflow= _eventFlow.asSharedFlow()
 
     private fun findFood(foodId: Int){
-        _food.value= getFoodItem(foodId) ?: FoodVM()
+        viewModelScope.launch {
+            val foodEntity=foodDao.getFoodItem(foodId)
+            _food.value= foodEntity?.let { FoodVM.fromEntity(it)}?: FoodVM()
+        }
     }
 
     init {
@@ -49,11 +53,15 @@ class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
 
             AddEditFoodEvent.SaveFood -> {
                 viewModelScope.launch {
-                    try{
-                        addOrUpdateFood(foodVM.value)
+                    if(foodVM.value.name.isEmpty()||foodVM.value.price.isNaN()){
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, name or price is empty"))
+                    } else if(foodVM.value.price==0.0||foodVM.value.price<0.0){
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, price is invalid"))
+                    }
+                    else{
+                        val entity = foodVM.value.toEntity()
+                        foodDao.upsertFoodItem(entity)
                         _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
-                    }catch (e: FoodException){
-                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage(e.message!!))
                     }
                 }
 

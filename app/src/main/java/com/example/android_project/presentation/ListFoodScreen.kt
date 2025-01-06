@@ -61,7 +61,7 @@ fun ListProductsScreen(foodViewModel: ListFoodViewModel ,navController: NavContr
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                items(foodViewModel.foods.value.chunked(2)) { foodPair -> // Chunk the list into pairs of 2
+                items(foodViewModel.food.value.chunked(2)) { foodPair -> // Chunk the list into pairs of 2
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
