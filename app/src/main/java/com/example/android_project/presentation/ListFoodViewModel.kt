@@ -9,6 +9,7 @@ import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortOrder
 import com.example.android_project.utils.getFood
+import com.example.android_project.utils.removeFood
 
 class ListFoodViewModel: ViewModel() {
     private val _foods: MutableState<List<Food>> = mutableStateOf(emptyList())
@@ -29,7 +30,8 @@ class ListFoodViewModel: ViewModel() {
     fun onEvent(event: FoodEvent){
         when(event){
             is FoodEvent.Delete -> {
-                deleteFood(event.food)
+                _foods.value=deleteFood(event.food)
+                _foods.value=loadFood(sortOrder.value)
             }
             is FoodEvent.Order -> {
                 _sortOrder.value = event.order
@@ -38,7 +40,7 @@ class ListFoodViewModel: ViewModel() {
         }
     }
 
-    private fun deleteFood(food: Food) {
-        _foods.value = _foods.value.filter { it != food }
+    private fun deleteFood(food: Food): List<Food> {
+        return removeFood(food)
     }
 }

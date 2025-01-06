@@ -35,6 +35,7 @@ fun addOrUpdateFood(food: Food) {
 
 }
 
-fun deleteBook(food: Food) {
+fun removeFood(food: Food): List<Food> {
     foodList.remove(food)
+    return foodList
 }
