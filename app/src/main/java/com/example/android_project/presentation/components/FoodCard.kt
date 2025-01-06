@@ -37,6 +37,7 @@ fun FoodCard(food: Food, modifier: Modifier = Modifier, onDeleteClick:(Food)->Un
     Box(modifier = modifier
             .fillMaxWidth()
             .padding(8.dp) // Padding around the entire card
+        .then(modifier)
     ) {
         Column{
             // Box for image and the name bar

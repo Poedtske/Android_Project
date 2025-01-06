@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.android_project.classes.*
 import com.example.android_project.utils.Screen
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,18 +21,33 @@ fun AddEditFoodScreen(
     viewModel: AddEditFoodViewModel
 ) {
 
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
+        snackbarHost = {SnackbarHost(snackbarHostState)},
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
                     viewModel.onEvent(AddEditFoodEvent.SaveFood)
-                    navController.navigate(Screen.FoodListScreen.route)
                 },
             ) {
                 Icon(imageVector = Icons.Default.Done, contentDescription = "Save Food")
             }
         }
     ) { contentPadding ->
+
+        LaunchedEffect(true) {
+            viewModel.eventflow.collectLatest { event ->
+                when(event){
+                    AddEditFoodUiEvent.SavedBook -> navController.navigate(Screen.FoodListScreen.route)
+                    is AddEditFoodUiEvent.ShowMessage ->{
+                        snackbarHostState.showSnackbar(message = event.message)
+                    }
+                }
+
+            }
+        }
+
         val food = viewModel.food.value
 
         Column(

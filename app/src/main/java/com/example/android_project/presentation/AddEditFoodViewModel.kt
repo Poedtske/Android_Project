@@ -3,14 +3,33 @@ package com.example.android_project.presentation
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.Food
+import com.example.android_project.presentation.components.SortByName
+import com.example.android_project.utils.FoodException
 import com.example.android_project.utils.addOrUpdateFood
+import com.example.android_project.utils.getFood
+import com.example.android_project.utils.getFoodItem
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 
 
-class AddEditFoodViewModel() : ViewModel() {
+class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
 
     private val _food = mutableStateOf(Food())
     val food: State<Food> = _food
+
+    private val _eventFlow= MutableSharedFlow<AddEditFoodUiEvent>()
+    val eventflow= _eventFlow.asSharedFlow()
+
+    private fun findFood(foodId: Int){
+        _food.value= getFoodItem(foodId) ?: Food()
+    }
+
+    init {
+        findFood(foodId)
+    }
 
     fun onEvent(event: AddEditFoodEvent) {
         when (event) {
@@ -31,7 +50,15 @@ class AddEditFoodViewModel() : ViewModel() {
             }
 
             AddEditFoodEvent.SaveFood -> {
-                addOrUpdateFood(food.value)
+                viewModelScope.launch {
+                    try{
+                        addOrUpdateFood(food.value)
+                        _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
+                    }catch (e: FoodException){
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage(e.message!!))
+                    }
+                }
+
             }
 
             is AddEditFoodEvent.AvailabilityChanged -> {
@@ -39,5 +66,10 @@ class AddEditFoodViewModel() : ViewModel() {
             }
         }
     }
+}
+
+sealed interface AddEditFoodUiEvent {
+    data class ShowMessage(val message: String) : AddEditFoodUiEvent
+    data object SavedBook:AddEditFoodUiEvent
 }
 

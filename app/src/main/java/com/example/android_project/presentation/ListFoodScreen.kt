@@ -1,6 +1,7 @@
 package com.example.android_project.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,9 +19,12 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
@@ -31,10 +35,16 @@ import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortOptions
 import com.example.android_project.utils.Screen
+import kotlinx.coroutines.launch
 
 @Composable
 fun ListProductsScreen(foodViewModel: ListFoodViewModel ,navController: NavController) {
+
+    val snackbarHostState = remember {SnackbarHostState()}
+    val scope = rememberCoroutineScope()
+
     Scaffold(
+        snackbarHost = {SnackbarHost(snackbarHostState)},
         floatingActionButton = {
             FloatingActionButton(onClick = {
                 navController.navigate(Screen.AddEditFoodScreen.route)
@@ -65,9 +75,16 @@ fun ListProductsScreen(foodViewModel: ListFoodViewModel ,navController: NavContr
                         horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between cards
                     ) {
                         foodPair.forEach { food ->
+                            println("foodId: "+food.id)
                             // Each card takes half the width
-                            FoodCard(food = food, modifier = Modifier.weight(1f)){
+                            FoodCard(food = food, modifier = Modifier.weight(1f).clickable {
+                                navController.navigate(Screen.AddEditFoodScreen.route + "?foodId=${food.id}")
+                            }){
                                 foodViewModel.onEvent(FoodEvent.Delete(food))
+                                scope.launch {
+                                    snackbarHostState.showSnackbar("Food item was deleted successfully")
+                                }
+
                             }
                         }
                     }

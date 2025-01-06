@@ -12,9 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.android_project.presentation.AddEditFoodViewModel
 import com.example.android_project.presentation.ListFoodViewModel
 import com.example.android_project.presentation.ListProductsScreen
@@ -39,8 +41,17 @@ class MainActivity : ComponentActivity() {
                             val food = viewModel<ListFoodViewModel>()
                             ListProductsScreen(food,navController)
                         }
-                        composable(route = Screen.AddEditFoodScreen.route){
-                            val food= viewModel<AddEditFoodViewModel>()
+                        composable(route = Screen.AddEditFoodScreen.route+"?foodId={foodId}", arguments = listOf(
+                            navArgument(name = "foodId"){
+                                type = NavType.IntType
+                                defaultValue = -1
+                            }
+                        )){ navBackStackEntry ->
+                            val foodId = navBackStackEntry.arguments?.getInt("foodId") ?: -1
+
+                            val food= viewModel<AddEditFoodViewModel>(){
+                                AddEditFoodViewModel(foodId)
+                            }
                             AddEditFoodScreen(navController,food)
                         }
                     }
