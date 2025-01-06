@@ -15,6 +15,9 @@ activity = "1.9.3"
 constraintlayout = "2.2.0"
 roomVersion="2.6.1"
 kspVersion="2.0.0-1.0.21"
+kotlinxSerialization="1.6.3"
+okHttp="4.11.0"
+retroFit="2.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +43,10 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+kotlinx-serialization-json ={module="org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref="kotlinxSerialization"}
+squareup-okhttp3={group="com.squareup.okhttp3",name="okhttp",version.ref="okHttp"}
+squareup-retrofit={group="com.squareup.retrofit2",name="retrofit",version.ref="retroFit"}
+squareup-kotlinx-serialization={group="com.squareup.retrofit2",name="converter-kotlinx-serialization",version.ref="okHttp"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
