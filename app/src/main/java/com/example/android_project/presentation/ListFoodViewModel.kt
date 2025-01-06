@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android_project.classes.Food
+import com.example.android_project.classes.FoodVM
 import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortOrder
@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 class ListFoodViewModel: ViewModel() {
-    private val _foods: MutableState<List<Food>> = mutableStateOf(emptyList())
-    var foods: State<List<Food>> =_foods
+    private val _foods: MutableState<List<FoodVM>> = mutableStateOf(emptyList())
+    var foods: State<List<FoodVM>> =_foods
 
     private var _sortOrder: MutableState<SortOrder> = mutableStateOf(SortByName)
     var sortOrder: State<SortOrder> = _sortOrder
@@ -35,7 +35,7 @@ class ListFoodViewModel: ViewModel() {
     fun onEvent(event: FoodEvent){
         when(event){
             is FoodEvent.Delete -> {
-                _foods.value=deleteFood(event.food)
+                _foods.value=deleteFood(event.foodVM)
                 loadFood(sortOrder.value)
             }
             is FoodEvent.Order -> {
@@ -45,7 +45,7 @@ class ListFoodViewModel: ViewModel() {
         }
     }
 
-    private fun deleteFood(food: Food): List<Food> {
-        return removeFood(food)
+    private fun deleteFood(foodVM: FoodVM): List<FoodVM> {
+        return removeFood(foodVM)
     }
 }

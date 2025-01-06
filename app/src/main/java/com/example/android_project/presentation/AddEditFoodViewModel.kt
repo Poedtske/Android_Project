@@ -4,11 +4,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android_project.classes.Food
-import com.example.android_project.presentation.components.SortByName
+import com.example.android_project.classes.FoodVM
 import com.example.android_project.utils.FoodException
 import com.example.android_project.utils.addOrUpdateFood
-import com.example.android_project.utils.getFood
 import com.example.android_project.utils.getFoodItem
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -17,14 +15,14 @@ import kotlinx.coroutines.launch
 
 class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
 
-    private val _food = mutableStateOf(Food())
-    val food: State<Food> = _food
+    private val _food = mutableStateOf(FoodVM())
+    val foodVM: State<FoodVM> = _food
 
     private val _eventFlow= MutableSharedFlow<AddEditFoodUiEvent>()
     val eventflow= _eventFlow.asSharedFlow()
 
     private fun findFood(foodId: Int){
-        _food.value= getFoodItem(foodId) ?: Food()
+        _food.value= getFoodItem(foodId) ?: FoodVM()
     }
 
     init {
@@ -52,7 +50,7 @@ class AddEditFoodViewModel(foodId: Int=-1) : ViewModel() {
             AddEditFoodEvent.SaveFood -> {
                 viewModelScope.launch {
                     try{
-                        addOrUpdateFood(food.value)
+                        addOrUpdateFood(foodVM.value)
                         _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
                     }catch (e: FoodException){
                         _eventFlow.emit(AddEditFoodUiEvent.ShowMessage(e.message!!))

@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.android_project.classes.Food
+import com.example.android_project.classes.FoodVM
 
 
 @Composable
@@ -37,11 +37,11 @@ data object SortByName : SortOrder()
 data object SortByPrice : SortOrder()
 
 data class NotesState(
-    val food: List<Food> = emptyList(),
+    val foodVM: List<FoodVM> = emptyList(),
     val foodOrder: SortOrder = SortByName,
 )
 
 sealed class FoodEvent {
     data class Order(val order: SortOrder):FoodEvent()
-    data class Delete(val food: Food):FoodEvent()
+    data class Delete(val foodVM: FoodVM):FoodEvent()
 }

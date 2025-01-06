@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,11 +28,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.android_project.R
-import com.example.android_project.classes.Food
+import com.example.android_project.classes.FoodVM
 
 
 @Composable
-fun FoodCard(food: Food, modifier: Modifier = Modifier, onDeleteClick:(Food)->Unit) {
+fun FoodCard(foodVM: FoodVM, modifier: Modifier = Modifier, onDeleteClick:(FoodVM)->Unit) {
     Box(modifier = modifier
             .fillMaxWidth()
             .padding(8.dp) // Padding around the entire card
@@ -48,8 +47,8 @@ fun FoodCard(food: Food, modifier: Modifier = Modifier, onDeleteClick:(Food)->Un
             ) {
                 // Image placed inside the Box
                 Image(
-                    painter = painterResource(id = getImageResource(food.img)),
-                    contentDescription = food.name,
+                    painter = painterResource(id = getImageResource(foodVM.img)),
+                    contentDescription = foodVM.name,
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(RoundedCornerShape(8.dp)) // Rounded corners for the image
@@ -63,11 +62,11 @@ fun FoodCard(food: Food, modifier: Modifier = Modifier, onDeleteClick:(Food)->Un
                         .align(Alignment.BottomStart)
                         .fillMaxWidth()
                         .height(40.dp)
-                        .background(food.availability.backgroundColor) // Black bar
+                        .background(foodVM.availability.backgroundColor) // Black bar
                 ) {
                     Text(
-                        text = food.name,
-                        color = food.availability.foreGroundColor,
+                        text = foodVM.name,
+                        color = foodVM.availability.foreGroundColor,
                         modifier = Modifier
                             .align(Alignment.CenterStart)
                             .padding(start = 16.dp), // Adjust text padding
@@ -77,7 +76,7 @@ fun FoodCard(food: Food, modifier: Modifier = Modifier, onDeleteClick:(Food)->Un
             }
         }
         IconButton(
-            onClick = {onDeleteClick(food)},
+            onClick = {onDeleteClick(foodVM)},
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .size(36.dp) // Size of the circle

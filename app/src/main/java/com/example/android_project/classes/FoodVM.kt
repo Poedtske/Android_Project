@@ -3,14 +3,10 @@ package com.example.android_project.classes
 import androidx.compose.ui.graphics.Color
 import com.example.android_project.classes.ui.theme.AvailableGreen
 import com.example.android_project.classes.ui.theme.NotAvailableRed
-import com.example.android_project.presentation.components.FoodEvent
-import com.example.android_project.presentation.components.SortByName
-import com.example.android_project.presentation.components.SortByPrice
 
-import java.util.UUID
 import kotlin.random.Random
 
-data class Food(
+data class FoodVM(
     val id: Int = Random.nextInt(),
     val name: String="",
     val img: String= "placeholder",

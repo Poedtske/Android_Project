@@ -48,7 +48,7 @@ fun AddEditFoodScreen(
             }
         }
 
-        val food = viewModel.food.value
+        val food = viewModel.foodVM.value
 
         Column(
             modifier = Modifier
