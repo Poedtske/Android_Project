@@ -18,6 +18,14 @@ kspVersion="2.0.0-1.0.21"
 kotlinxSerialization="1.6.3"
 okHttp="4.11.0"
 retroFit="2.11.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseDatabase = "21.0.0"
+firebaseAuth = "23.1.0"
+annotation = "1.6.0"
+lifecycleLivedataKtx = "2.8.7"
+lifecycleViewmodelKtx = "2.8.7"
+firebaseAnaly="21.1.1"
+firebaseBom="33.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,11 +54,19 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 kotlinx-serialization-json ={module="org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref="kotlinxSerialization"}
 squareup-okhttp3={group="com.squareup.okhttp3",name="okhttp",version.ref="okHttp"}
 squareup-retrofit={group="com.squareup.retrofit2",name="retrofit",version.ref="retroFit"}
-squareup-kotlinx-serialization={group="com.squareup.retrofit2",name="converter-kotlinx-serialization",version.ref="okHttp"}
+squareup-kotlinx-serialization={group="com.squareup.retrofit2",name="converter-kotlinx-serialization",version.ref="retroFit"}
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-bom={group="com.google.firebase", name="firebase-bom",version.ref="firebaseBom"}
+firebase-analytics={group="com.google.firebase", name="firebase-analytics",version.ref="firebaseAnaly"}
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = {id = "com.google.devtools.ksp",version.ref="kspVersion"}
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 

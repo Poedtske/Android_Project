@@ -4,7 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.android_project.classes.Course
 import com.example.android_project.classes.FoodCategory
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "Food")
 data class FoodItem(
     @PrimaryKey(autoGenerate = true)val id: Int?=null,

@@ -22,8 +22,12 @@ import com.example.android_project.presentation.ListProductsScreen
 import com.example.android_project.presentation.AddEditFoodScreen
 import com.example.android_project.ui.theme.Android_ProjectTheme
 import com.example.android_project.utils.Screen
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 
 class MainActivity : ComponentActivity() {
+
+    private val database = Firebase.database("https://androidproject-9aa3f-default-rtdb.europe-west1.firebasedatabase.app/")
 
     private val db by lazy{
         Room.databaseBuilder(
