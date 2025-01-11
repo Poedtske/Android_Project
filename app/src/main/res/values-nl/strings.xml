@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Android_Project</string>
-    <string name="title_activity_products_view">ProductsView</string>
-    <string name="delete_food">Delete Food</string>
-    <string name="bar">BAR</string>
-    <string name="checkout">CHECKOUT</string>
+    <string name="title_activity_products_view">ProductenBeeld</string>
+    <string name="delete_food">Verwijder Voedsel</string>
+    <string name="bar">TOOG</string>
+    <string name="checkout">KASSA</string>
 
     <string name="category_soda">Sodas</string>
     <string name="category_beer">Beers</string>
@@ -16,11 +17,10 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_ober_product_view">OberProductView</string>
+    <string name="action_sign_in">Inloggen of registreren</string>
+    <string name="action_sign_in_short">Inloggen</string>
+    <string name="welcome">"Welkom !"</string>
+    <string name="invalid_username">Geen geldige gebruikersnaam</string>
+    <string name="invalid_password">Passwoord moet langer dan 5 characters zijn</string>
+    <string name="login_failed">"Inloggen gefaald"</string>
 </resources>
