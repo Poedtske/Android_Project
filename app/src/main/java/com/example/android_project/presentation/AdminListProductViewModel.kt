@@ -11,13 +11,12 @@ import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortByPrice
 import com.example.android_project.presentation.components.SortOrder
-import com.example.android_project.utils.removeFood
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class ListFoodViewModel(val dao: FoodDao): ViewModel() {
+class AdminListProductViewModel(val dao: FoodDao): ViewModel() {
     private val _food: MutableState<List<FoodVM>> = mutableStateOf(emptyList())
     var food: State<List<FoodVM>> =_food
 

@@ -32,7 +32,7 @@ import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
 @Composable
-fun ListProductsScreen(foodViewModel: ListFoodViewModel ,navController: NavController) {
+fun AdminListProductsScreen(foodViewModel: AdminListProductViewModel, navController: NavController) {
 
     val snackbarHostState = remember {SnackbarHostState()}
     val scope = rememberCoroutineScope()

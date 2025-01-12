@@ -15,12 +15,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.room.Room
-import com.example.android_project.classes.ui.theme.Android_ProjectTheme
-import com.example.android_project.data.source.FoodDatabase
+import com.example.android_project.data.source.RestaurantDatabase
 import com.example.android_project.presentation.AddEditFoodScreen
 import com.example.android_project.presentation.AddEditFoodViewModel
-import com.example.android_project.presentation.ListFoodViewModel
-import com.example.android_project.presentation.ListProductsScreen
+import com.example.android_project.presentation.AdminListProductViewModel
+import com.example.android_project.presentation.AdminListProductsScreen
 import com.example.android_project.utils.Screen
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
@@ -32,8 +31,8 @@ class ProductsView : ComponentActivity() {
     private val db by lazy{
         Room.databaseBuilder(
             applicationContext,
-            FoodDatabase::class.java,
-            FoodDatabase.DATABASE_NAME
+            RestaurantDatabase::class.java,
+            RestaurantDatabase.DATABASE_NAME
         ).build()
     }
 
@@ -50,10 +49,10 @@ class ProductsView : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(route = Screen.FoodListScreen.route) {
-                            val food = viewModel<ListFoodViewModel> {
-                                ListFoodViewModel(db.foodDao)
+                            val food = viewModel<AdminListProductViewModel> {
+                                AdminListProductViewModel(db.foodDao)
                             }
-                            ListProductsScreen(food, navController)
+                            AdminListProductsScreen(food, navController)
                         }
                         composable(route = Screen.AddEditFoodScreen.route + "?foodId={foodId}",
                             arguments = listOf(

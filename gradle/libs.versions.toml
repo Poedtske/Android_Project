@@ -26,6 +26,7 @@ lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 firebaseAnaly="21.1.1"
 firebaseBom="33.7.0"
+coilCompose="2.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,7 @@ firebase-analytics={group="com.google.firebase", name="firebase-analytics",versi
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+coil-compose={group="io.coil-kt",name="coil-compose",version.ref="coilCompose"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

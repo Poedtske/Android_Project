@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.squareup.retrofit)
     implementation(libs.squareup.okhttp3)
     implementation(libs.squareup.kotlinx.serialization)
+    implementation(libs.coil.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
