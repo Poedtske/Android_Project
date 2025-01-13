@@ -70,7 +70,6 @@ fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminLis
                         horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between cards
                     ) {
                         foodPair.forEach { food ->
-                            println("foodId: "+food.id)
                             // Each card takes half the width
                             FoodCard(foodVM = food, modifier = Modifier.weight(1f).clickable {
                                 navController.navigate(Screen.AddEditFoodScreen.route + "?foodId=${food.id}")
