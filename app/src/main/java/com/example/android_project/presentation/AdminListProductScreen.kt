@@ -23,6 +23,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 import com.example.android_project.presentation.components.FoodCard
@@ -32,7 +33,7 @@ import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
 @Composable
-fun AdminListProductsScreen(foodViewModel: AdminListProductViewModel, navController: NavController) {
+fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminListProductViewModel = hiltViewModel()) {
 
     val snackbarHostState = remember {SnackbarHostState()}
     val scope = rememberCoroutineScope()

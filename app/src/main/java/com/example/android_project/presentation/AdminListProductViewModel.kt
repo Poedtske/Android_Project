@@ -11,12 +11,16 @@ import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortByPrice
 import com.example.android_project.presentation.components.SortOrder
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AdminListProductViewModel(val foodsUseCases: FoodsUseCases): ViewModel() {
+@HiltViewModel
+class AdminListProductViewModel @Inject constructor
+    (private val foodsUseCases: FoodsUseCases): ViewModel() {
     private val _food: MutableState<List<FoodVM>> = mutableStateOf(emptyList())
     var food: State<List<FoodVM>> =_food
 

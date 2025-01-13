@@ -23,7 +23,9 @@ import com.example.android_project.presentation.AdminListProductsScreen
 import com.example.android_project.utils.Screen
 import com.google.firebase.Firebase
 import com.google.firebase.database.database
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductsView : ComponentActivity() {
 
     private val database = Firebase.database("https://androidproject-9aa3f-default-rtdb.europe-west1.firebasedatabase.app/")
@@ -49,10 +51,8 @@ class ProductsView : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(route = Screen.FoodListScreen.route) {
-                            val food = viewModel<AdminListProductViewModel> {
-                                AdminListProductViewModel(db.foodDao)
-                            }
-                            AdminListProductsScreen(food, navController)
+
+                            AdminListProductsScreen(navController)
                         }
                         composable(route = Screen.AddEditFoodScreen.route + "?foodId={foodId}",
                             arguments = listOf(
@@ -61,12 +61,8 @@ class ProductsView : ComponentActivity() {
                                     defaultValue = -1
                                 }
                             )) { navBackStackEntry ->
-                            val foodId = navBackStackEntry.arguments?.getInt("foodId") ?: -1
 
-                            val food = viewModel<AddEditFoodViewModel>() {
-                                AddEditFoodViewModel(foodId, db.foodDao)
-                            }
-                            AddEditFoodScreen(navController, food)
+                            AddEditFoodScreen(navController)
                         }
                     }
 

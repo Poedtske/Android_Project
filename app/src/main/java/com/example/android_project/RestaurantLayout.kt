@@ -37,8 +37,9 @@ class RestaurantLayout : AppCompatActivity() {
         }
     }
     private fun navigateToTableDetail(tableId: String) {
-        val intent = Intent(this, OberProductView::class.java)
+        /*val intent = Intent(this, OberProductView::class.java)
         intent.putExtra("TABLE_ID", tableId)
-        startActivity(intent)
+        startActivity(intent)*/
+        print("TableId: ${tableId}")
     }
 }

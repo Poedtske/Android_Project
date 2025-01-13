@@ -2,17 +2,21 @@ package com.example.android_project.presentation
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
 import com.example.android_project.domain.usecase.FoodsUseCases
 import com.example.android_project.utils.getFoodItem
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class AddEditFoodViewModel(foodId: Int = -1, val foodsUseCases: FoodsUseCases) : ViewModel() {
+@HiltViewModel
+class AddEditFoodViewModel @Inject constructor
+    (savedStateHandle: SavedStateHandle, private val foodsUseCases: FoodsUseCases) : ViewModel() {
 
     private val _food = mutableStateOf(FoodVM())
     val foodVM: State<FoodVM> = _food
@@ -28,6 +32,7 @@ class AddEditFoodViewModel(foodId: Int = -1, val foodsUseCases: FoodsUseCases) :
     }
 
     init {
+        val foodId= savedStateHandle.get<Int>("foodId")?:-1
         findFood(foodId)
     }
 
