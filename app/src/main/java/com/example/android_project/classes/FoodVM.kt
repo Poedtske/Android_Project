@@ -19,7 +19,7 @@ data class FoodVM(
     fun toEntity(): FoodItem {
         val id = if(this.id==-1) null else this.id
         return FoodItem(
-            id = id,
+            foodId = id,
             name = this.name,
             img = this.img,
             price = this.price,
@@ -32,7 +32,7 @@ data class FoodVM(
     companion object {
         fun fromEntity(entity: FoodItem): FoodVM {
             return FoodVM(
-                id=entity.id!!,
+                id=entity.foodId!!,
                 name=entity.name,
                 img = entity.img,
                 price = entity.price,

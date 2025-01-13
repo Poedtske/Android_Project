@@ -11,8 +11,8 @@ import java.util.UUID
 @Serializable
 @Entity(tableName = "Clients")
 data class ClientItem(
-    @PrimaryKey(autoGenerate = true)val clientId: UUID?=null,
-    val associatedTableId: UUID,
+    @PrimaryKey(autoGenerate = true)val clientId: Int?=null,
+    val associatedTableId: Int,
 )
 
 

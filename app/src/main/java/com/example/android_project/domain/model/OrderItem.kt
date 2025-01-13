@@ -11,8 +11,8 @@ import java.util.UUID
 @Serializable
 @Entity(tableName = "Orders")
 data class OrderItem(
-    @PrimaryKey(autoGenerate = true)val orderId: UUID?=null,
-    val associatedClientId: UUID,
+    @PrimaryKey(autoGenerate = true)val orderId: Int?=null,
+    val associatedClientId: Int,
 )
 
 //1:M relation with client:orders
@@ -28,7 +28,7 @@ data class ClientWithOrders(
 //M:M relation orders:food
 @Entity(primaryKeys = ["orderId","foodId"])
 data class OrderFoodCrossRef(
-    val orderId: UUID,
+    val orderId: Int,
     val foodId: Int
 )
 
@@ -55,8 +55,8 @@ data class FoodWithOrders(
 //M:M relation orders:drinks
 @Entity(primaryKeys = ["orderId","drinkId"])
 data class OrderDrinksCrossRef(
-    val orderId: UUID,
-    val drinkId: UUID
+    val orderId: Int,
+    val drinkId: Int
 )
 
 data class OrderWithDrinks(

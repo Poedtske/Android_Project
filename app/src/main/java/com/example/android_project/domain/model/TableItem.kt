@@ -11,7 +11,6 @@ import java.util.UUID
 @Serializable
 @Entity(tableName = "Tables")
 data class TableItem(
-    @PrimaryKey(autoGenerate = true)val tableId: UUID?=null,
-    val open:Boolean
+    @PrimaryKey(autoGenerate = true)val tableId: Int?=null
 )
 

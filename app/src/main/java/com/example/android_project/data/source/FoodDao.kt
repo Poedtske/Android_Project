@@ -15,7 +15,7 @@ interface FoodDao {
     @Query("SELECT * FROM Food")
     fun getFood():Flow<List<FoodItem>>
 
-    @Query("SELECT * FROM Food WHERE ID = :id")
+    @Query("SELECT * FROM Food WHERE foodId = :id")
     suspend fun getFoodItem(id:Int):FoodItem?
 
     @Upsert
@@ -25,6 +25,6 @@ interface FoodDao {
     suspend fun deleteFoodItem(foodItem: FoodItem)
 
     @Transaction
-    @Query("SELECT * FROM Orders")
+    @Query("SELECT * FROM Food")
     fun getFoodWithOrders(): List<FoodWithOrders>
 }

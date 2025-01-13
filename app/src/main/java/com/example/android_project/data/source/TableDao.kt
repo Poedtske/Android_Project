@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TableDao {
 
-    @Query("SELECT * FROM Food")
+    @Query("SELECT * FROM Tables")
     fun getTables():Flow<List<TableItem>>
 
-    @Query("SELECT * FROM Food WHERE ID = :id")
+    @Query("SELECT * FROM Tables WHERE tableId = :id")
     suspend fun getTableItem(id:Int): TableItem?
 
     @Upsert
