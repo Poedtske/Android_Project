@@ -5,16 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.data.source.FoodDao
-import com.example.android_project.utils.FoodException
-import com.example.android_project.utils.addOrUpdateFood
+import com.example.android_project.domain.usecase.FoodsUseCases
 import com.example.android_project.utils.getFoodItem
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 
-class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel() {
+class AddEditFoodViewModel(foodId: Int = -1, val foodsUseCases: FoodsUseCases) : ViewModel() {
 
     private val _food = mutableStateOf(FoodVM())
     val foodVM: State<FoodVM> = _food
@@ -24,7 +22,7 @@ class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel()
 
     private fun findFood(foodId: Int){
         viewModelScope.launch {
-            val foodEntity=foodDao.getFoodItem(foodId)
+            val foodEntity=foodsUseCases.getFood(foodId)
             _food.value= foodEntity?.let { FoodVM.fromEntity(it)}?: FoodVM()
         }
     }
@@ -60,7 +58,7 @@ class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel()
                     }
                     else{
                         val entity = foodVM.value.toEntity()
-                        foodDao.upsertFoodItem(entity)
+                        foodsUseCases.upsertFood(entity)
                         _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
                     }
                 }

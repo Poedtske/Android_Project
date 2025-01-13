@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.data.source.FoodDao
+import com.example.android_project.domain.usecase.FoodsUseCases
 import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
 import com.example.android_project.presentation.components.SortByPrice
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class AdminListProductViewModel(val dao: FoodDao): ViewModel() {
+class AdminListProductViewModel(val foodsUseCases: FoodsUseCases): ViewModel() {
     private val _food: MutableState<List<FoodVM>> = mutableStateOf(emptyList())
     var food: State<List<FoodVM>> =_food
 
@@ -32,19 +32,9 @@ class AdminListProductViewModel(val dao: FoodDao): ViewModel() {
     private fun loadFood(sortOrder: SortOrder) {
         job?.cancel()
 
-        job=dao.getFood().onEach {
+        job=foodsUseCases.getFoods(sortOrder).onEach {
             food->_food.value=food.map { FoodVM.fromEntity(it) }
-            sortFood(sortOrder)
         }.launchIn(viewModelScope)
-    }
-
-    private fun sortFood(order: SortOrder){
-        _sortOrder.value=order
-
-        _food.value = when (order){
-            SortByName -> food.value.sortedBy { it.name }
-            SortByPrice -> food.value.sortedBy { it.price }
-        }
     }
 
     fun onEvent(event: FoodEvent){
@@ -62,7 +52,7 @@ class AdminListProductViewModel(val dao: FoodDao): ViewModel() {
 
     private fun deleteFood(foodVM: FoodVM) {
         viewModelScope.launch {
-            dao.deleteFoodItem(foodVM.toEntity())
+            foodsUseCases.deleteFood(foodVM.toEntity())
         }
 
     }
