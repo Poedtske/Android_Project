@@ -6,15 +6,17 @@ import androidx.room.Query
 import com.example.android_project.classes.Course
 import com.example.android_project.classes.FoodCategory
 import kotlinx.serialization.Serializable
+import javax.annotation.Nonnull
 
 @Serializable
 @Entity(tableName = "Food")
 data class FoodItem(
-    @PrimaryKey(autoGenerate = true)val id: Int?=null,
-    val name: String,
-    val img: String,
-    val price: Double,
-    val category: FoodCategory,
-    val course: Course,
-    val availability: Boolean
+    @Nonnull
+    @PrimaryKey val id: String = "",  // Default values for all fields
+    val name: String = "",
+    val img: String = "",
+    val price: Double = 0.0,
+    val category: FoodCategory = FoodCategory.UNKNOWN, // Provide a default for enums
+    val course: Course = Course.UNKNOWN, // Provide a default for enums
+    val availability: Boolean = true
 )

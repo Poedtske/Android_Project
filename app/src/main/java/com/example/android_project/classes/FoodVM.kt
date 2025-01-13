@@ -8,7 +8,7 @@ import com.example.android_project.domain.model.FoodItem
 import kotlin.random.Random
 
 data class FoodVM(
-    val id: Int = Random.nextInt(),
+    val id: String = "${Random.nextInt()}",
     val name: String="",
     val img: String= "placeholder",
     val price: Double=0.0,
@@ -17,7 +17,6 @@ data class FoodVM(
     val availability: Availability =Available
 ) {
     fun toEntity(): FoodItem {
-        val id = if(this.id==-1) null else this.id
         return FoodItem(
             id = id,
             name = this.name,

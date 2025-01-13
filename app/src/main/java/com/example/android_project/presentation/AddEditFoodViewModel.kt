@@ -5,32 +5,38 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.data.source.FoodDao
 import com.example.android_project.utils.FoodException
-import com.example.android_project.utils.addOrUpdateFood
-import com.example.android_project.utils.getFoodItem
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
-
-class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel() {
+class AddEditFoodViewModel(foodId: String? = null, private val database: FirebaseDatabase) : ViewModel() {
 
     private val _food = mutableStateOf(FoodVM())
     val foodVM: State<FoodVM> = _food
 
-    private val _eventFlow= MutableSharedFlow<AddEditFoodUiEvent>()
-    val eventflow= _eventFlow.asSharedFlow()
+    private val _eventFlow = MutableSharedFlow<AddEditFoodUiEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
-    private fun findFood(foodId: Int){
-        viewModelScope.launch {
-            val foodEntity=foodDao.getFoodItem(foodId)
-            _food.value= foodEntity?.let { FoodVM.fromEntity(it)}?: FoodVM()
+    init {
+        foodId?.let {
+            findFood(it)
         }
     }
 
-    init {
-        findFood(foodId)
+    private fun findFood(foodId: String) {
+        viewModelScope.launch {
+            try {
+                val foodReference = database.getReference("food").child(foodId)
+                val snapshot = foodReference.get().await()
+                val foodItem = snapshot.getValue(FoodVM::class.java)
+                _food.value = foodItem ?: FoodVM()
+            } catch (e: Exception) {
+                _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Error loading food: ${e.message}"))
+            }
+        }
     }
 
     fun onEvent(event: AddEditFoodEvent) {
@@ -53,18 +59,30 @@ class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel()
 
             AddEditFoodEvent.SaveFood -> {
                 viewModelScope.launch {
-                    if(foodVM.value.name.isEmpty()||foodVM.value.price.isNaN()){
+                    val food = foodVM.value
+                    if (food.name.isEmpty() || food.price.isNaN()) {
                         _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, name or price is empty"))
-                    } else if(foodVM.value.price==0.0||foodVM.value.price<0.0){
-                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, price is invalid"))
+                        return@launch
                     }
-                    else{
-                        val entity = foodVM.value.toEntity()
-                        foodDao.upsertFoodItem(entity)
+                    if (food.price <= 0.0) {
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, price is invalid"))
+                        return@launch
+                    }
+
+                    try {
+                        val foodReference = database.getReference("food")
+                        var foodId:String=""
+                        if (!"${food.id}".isEmpty()){
+                            foodId=foodReference.push().key.toString()
+                        }
+
+                        foodReference.child(foodId).setValue(food.copy(id = foodId)).await()
+
                         _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
+                    } catch (e: Exception) {
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Error saving food: ${e.message}"))
                     }
                 }
-
             }
 
             is AddEditFoodEvent.AvailabilityChanged -> {
@@ -76,6 +94,5 @@ class AddEditFoodViewModel(foodId: Int = -1, val foodDao: FoodDao) : ViewModel()
 
 sealed interface AddEditFoodUiEvent {
     data class ShowMessage(val message: String) : AddEditFoodUiEvent
-    data object SavedBook:AddEditFoodUiEvent
+    data object SavedBook : AddEditFoodUiEvent
 }
-

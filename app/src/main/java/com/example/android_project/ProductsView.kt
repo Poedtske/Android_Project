@@ -21,12 +21,13 @@ import com.example.android_project.presentation.AddEditFoodViewModel
 import com.example.android_project.presentation.AdminListProductViewModel
 import com.example.android_project.presentation.AdminListProductsScreen
 import com.example.android_project.utils.Screen
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
+import com.google.firebase.database.FirebaseDatabase
 
 class ProductsView : ComponentActivity() {
 
-    private val database = Firebase.database("https://androidproject-9aa3f-default-rtdb.europe-west1.firebasedatabase.app/")
+    //private val database = Firebase.database("https://androidproject-9aa3f-default-rtdb.europe-west1.firebasedatabase.app/")
+    val database= FirebaseDatabase.getInstance()
+    //val myRef= database.getReference("users")
 
     private val db by lazy{
         Room.databaseBuilder(
@@ -39,6 +40,7 @@ class ProductsView : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             com.example.android_project.ui.theme.Android_ProjectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -50,7 +52,7 @@ class ProductsView : ComponentActivity() {
                     ) {
                         composable(route = Screen.FoodListScreen.route) {
                             val food = viewModel<AdminListProductViewModel> {
-                                AdminListProductViewModel(db.foodDao)
+                                AdminListProductViewModel(database)
                             }
                             AdminListProductsScreen(food, navController)
                         }
@@ -64,7 +66,7 @@ class ProductsView : ComponentActivity() {
                             val foodId = navBackStackEntry.arguments?.getInt("foodId") ?: -1
 
                             val food = viewModel<AddEditFoodViewModel>() {
-                                AddEditFoodViewModel(foodId, db.foodDao)
+                                AddEditFoodViewModel("${foodId}", database)
                             }
                             AddEditFoodScreen(navController, food)
                         }

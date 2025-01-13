@@ -37,7 +37,7 @@ fun AddEditFoodScreen(
     ) { contentPadding ->
 
         LaunchedEffect(true) {
-            viewModel.eventflow.collectLatest { event ->
+            viewModel.eventFlow.collectLatest { event ->
                 when(event){
                     AddEditFoodUiEvent.SavedBook -> navController.navigate(Screen.FoodListScreen.route)
                     is AddEditFoodUiEvent.ShowMessage ->{

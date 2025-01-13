@@ -44,16 +44,16 @@ class OberProductView : ComponentActivity() {
                         startDestination = Screen.FoodListScreen.route,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        //ViewModel
+                        /*//ViewModel
                         composable(route = Screen.FoodListScreen.route) {
                             val food = viewModel<AdminListProductViewModel> {
                                 AdminListProductViewModel(db.foodDao)
                             }
                             AdminListProductsScreen(food, navController)
-                        }
+                        }*/
 
                         //addEditOrder
-                        composable(route = Screen.AddEditFoodScreen.route + "?foodId={foodId}",
+                        /*composable(route = Screen.AddEditFoodScreen.route + "?foodId={foodId}",
                             arguments = listOf(
                                 navArgument(name = "foodId") {
                                     type = NavType.IntType
@@ -66,7 +66,7 @@ class OberProductView : ComponentActivity() {
                                 AddEditFoodViewModel(foodId, db.foodDao)
                             }
                             AddEditFoodScreen(navController, food)
-                        }
+                        }*/
                     }
 
                 }

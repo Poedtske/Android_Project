@@ -26,7 +26,7 @@ fun getFood(orderBy: SortOrder) = flow {
 
 }
 
-fun getFoodItem(foodId: Int): FoodVM?{
+fun getFoodItem(foodId: String): FoodVM?{
     return foodVMLists.find { it.id==foodId }
 }
 

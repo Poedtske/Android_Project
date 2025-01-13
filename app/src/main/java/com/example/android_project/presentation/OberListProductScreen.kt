@@ -45,7 +45,6 @@ fun OberListProductsScreen(foodViewModel: AdminListProductViewModel, navControll
             .padding(contentPadding)
             .padding(horizontal = 8.dp)
             .fillMaxSize()) {
-            Text()
 
             LazyColumn(
                 modifier = Modifier

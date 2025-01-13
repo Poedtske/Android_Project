@@ -5,7 +5,8 @@ enum class FoodCategory(val displayName: String) {
     SOUPS("@string/category_soups"),
     SEAFOOD("@string/category_seafood"),
     PASTA("@string/category_pasta"),
-    GRILL("@string/category_grill");
+    GRILL("@string/category_grill"),
+    UNKNOWN("UNKNOWN");
 
     // Simplified comparison function
     fun isType(type: FoodCategory): Boolean {

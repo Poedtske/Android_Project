@@ -4,7 +4,8 @@ enum class Course(val displayName: String) {
     NONE("None"),
     STARTER("Starter"),
     MAIN("Main Course"),
-    DESSERT("Dessert");
+    DESSERT("Dessert"),
+    UNKNOWN("UNKNOWN");
 
     // Simplified comparison function
     private fun isType(type: Course): Boolean {

@@ -9,7 +9,7 @@ import java.util.UUID
 @Serializable
 @Entity(tableName = "Drinks")
 data class DrinkItem(
-    @PrimaryKey(autoGenerate = true)val id: UUID?=null,
+    @PrimaryKey(autoGenerate = true)val id: Int?=null,
     val name: String,
     val img: String,
     val price: Double,
