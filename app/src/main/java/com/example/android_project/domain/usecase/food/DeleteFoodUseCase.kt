@@ -1,4 +1,4 @@
-package com.example.android_project.domain.usecase
+package com.example.android_project.domain.usecase.food
 
 import com.example.android_project.data.source.FoodDao
 import com.example.android_project.domain.model.FoodItem

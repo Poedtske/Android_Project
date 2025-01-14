@@ -6,8 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.domain.usecase.FoodsUseCases
-import com.example.android_project.utils.getFoodItem
+import com.example.android_project.domain.usecase.food.FoodsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

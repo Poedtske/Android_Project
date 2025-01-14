@@ -6,10 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.domain.usecase.FoodsUseCases
+import com.example.android_project.domain.usecase.food.FoodsUseCases
 import com.example.android_project.presentation.components.FoodEvent
 import com.example.android_project.presentation.components.SortByName
-import com.example.android_project.presentation.components.SortByPrice
 import com.example.android_project.presentation.components.SortOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
