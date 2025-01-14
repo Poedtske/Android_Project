@@ -1,5 +1,6 @@
 package com.example.android_project.presentation
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
@@ -44,7 +45,7 @@ fun AddEditFoodScreen(
         LaunchedEffect(true) {
             viewModel.eventflow.collectLatest { event ->
                 when(event){
-                    AddEditFoodUiEvent.SavedBook -> navController.navigate(Screen.FoodListScreen.route)
+                    AddEditFoodUiEvent.SavedFood -> navController.navigate(Screen.FoodListScreen.route)
                     is AddEditFoodUiEvent.ShowMessage ->{
                         snackbarHostState.showSnackbar(message = event.message)
                     }
@@ -77,7 +78,7 @@ fun AddEditFoodScreen(
                     viewModel.onEvent(AddEditFoodEvent.EnteredName(it))
                 },
                 singleLine = true,
-                textStyle = MaterialTheme.typography.headlineMedium.copy(color = Color.Black),
+                textStyle = MaterialTheme.typography.headlineMedium.copy(color = colorResource(R.color.text)),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -120,12 +121,13 @@ fun AddEditFoodScreen(
 
             // Food Category Dropdown
             var expandedCategory by remember { mutableStateOf(false) }
-            var selectedCategory by remember { mutableStateOf(food.category) }
+            var selectedCategory = food.category
 
             ExposedDropdownMenuBox(
                 expanded = expandedCategory,
                 onExpandedChange = { expandedCategory = !expandedCategory }
             ) {
+                Log.d("CategoryDebug",selectedCategory.name)
                 OutlinedTextField(
                     readOnly = true,
                     value = stringResource(selectedCategory.displayName),
@@ -155,7 +157,7 @@ fun AddEditFoodScreen(
 
             // Course Dropdown
             var expandedCourse by remember { mutableStateOf(false) }
-            var selectedCourse by remember { mutableStateOf(food.course) }
+            var selectedCourse = food.course
 
             ExposedDropdownMenuBox(
                 expanded = expandedCourse,

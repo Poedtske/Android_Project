@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.android_project.ui.theme.Android_ProjectTheme
 
@@ -21,7 +22,7 @@ class OberTableView : ComponentActivity() {
             Android_ProjectTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "${R.string.table} id= ${intent.getStringExtra("TABLE_ID").orEmpty()}",
+                        name = "${stringResource(R.string.table)} id= ${intent.getStringExtra("TABLE_ID").orEmpty()}",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

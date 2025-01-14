@@ -1,5 +1,6 @@
 package com.example.android_project.presentation
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -27,6 +28,8 @@ class AddEditFoodViewModel @Inject constructor
         viewModelScope.launch {
             val foodEntity=foodsUseCases.getFood(foodId)
             _food.value= foodEntity?.let { FoodVM.fromEntity(it)}?: FoodVM()
+            Log.d("FoodDebug",_food.value.toString())
+            Log.d("FoodDebug, VM",foodVM.toString())
         }
     }
 
@@ -57,13 +60,13 @@ class AddEditFoodViewModel @Inject constructor
                 viewModelScope.launch {
                     if(foodVM.value.name.isEmpty()||foodVM.value.price.isNaN()){
                         _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, name or price is empty"))
-                    } else if(foodVM.value.price==0.0||foodVM.value.price<0.0){
+                    } else if(foodVM.value.price<=0.0){
                         _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, price is invalid"))
                     }
                     else{
                         val entity = foodVM.value.toEntity()
                         foodsUseCases.upsertFood(entity)
-                        _eventFlow.emit(AddEditFoodUiEvent.SavedBook)
+                        _eventFlow.emit(AddEditFoodUiEvent.SavedFood)
                     }
                 }
 
@@ -78,6 +81,6 @@ class AddEditFoodViewModel @Inject constructor
 
 sealed interface AddEditFoodUiEvent {
     data class ShowMessage(val message: String) : AddEditFoodUiEvent
-    data object SavedBook:AddEditFoodUiEvent
+    data object SavedFood:AddEditFoodUiEvent
 }
 
