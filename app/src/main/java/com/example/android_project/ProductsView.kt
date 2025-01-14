@@ -42,16 +42,6 @@ data class BottomNavigationItem(
 @AndroidEntryPoint
 class ProductsView : ComponentActivity() {
 
-    private val database = Firebase.database("https://androidproject-9aa3f-default-rtdb.europe-west1.firebasedatabase.app/")
-
-    private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            RestaurantDatabase::class.java,
-            RestaurantDatabase.DATABASE_NAME
-        ).build()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

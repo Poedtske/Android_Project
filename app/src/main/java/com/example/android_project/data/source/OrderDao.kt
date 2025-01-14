@@ -27,9 +27,11 @@ interface OrderDao {
 
     @Transaction
     @Query("SELECT * FROM Orders")
-    fun getOrdersWithFood(): List<OrderWithFood>
+    fun getOrdersWithFood(): Flow<List<OrderWithFood>>
 
     @Transaction
     @Query("SELECT * FROM Orders")
-    fun getOrdersWithDrinks(): List<OrderWithDrinks>
+    fun getOrdersWithDrinks(): Flow<List<OrderWithDrinks>>
+
+
 }

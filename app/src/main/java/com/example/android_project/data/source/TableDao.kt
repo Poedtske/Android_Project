@@ -26,5 +26,9 @@ interface TableDao {
 
     @Transaction
     @Query("SELECT * FROM Tables")
-    fun getTablesWithClients(): List<TableAndClients>
+    fun getTablesWithClients(): Flow<List<TableAndClients>>
+
+    @Transaction
+    @Query("SELECT * FROM Tables WHERE tableId = :id")
+    fun getTableWithClients(id: Int): TableAndClients
 }

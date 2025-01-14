@@ -26,5 +26,9 @@ interface ClientDao {
 
     @Transaction
     @Query("SELECT * FROM Clients")
-    fun getClientsWithOrders(): List<ClientWithOrders>
+    fun getClientsWithOrders(): Flow<List<ClientWithOrders>>
+
+    @Transaction
+    @Query("SELECT * FROM Clients WHERE clientId = :id")
+    fun getClientWithOrders(id:Int): ClientWithOrders?
 }

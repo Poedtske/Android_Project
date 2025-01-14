@@ -19,6 +19,7 @@ abstract class RestaurantDatabase:RoomDatabase() {
     abstract val drinkDao: DrinkDao
     abstract val clientDao: ClientDao
     abstract val tableDao: TableDao
+    abstract val orderDao: OrderDao
 
     companion object{
         const val DATABASE_NAME = "restaurant.db"

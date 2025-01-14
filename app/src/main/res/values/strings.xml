@@ -23,4 +23,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_ober_product_view">OberProductView</string>
+    <string name="title_activity_ober_table">OberTable</string>
+    <string name="title_activity_ober_table_view">OberTableView</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.android_project.utils.Screen
 
 class RestaurantLayout : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +38,8 @@ class RestaurantLayout : AppCompatActivity() {
         }
     }
     private fun navigateToTableDetail(tableId: String) {
-        /*val intent = Intent(this, OberProductView::class.java)
+        val intent = Intent(this, OberTableView::class.java)
         intent.putExtra("TABLE_ID", tableId)
-        startActivity(intent)*/
-        print("TableId: ${tableId}")
+        startActivity(intent)
     }
 }

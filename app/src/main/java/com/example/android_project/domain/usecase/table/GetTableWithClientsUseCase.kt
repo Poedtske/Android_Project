@@ -5,8 +5,8 @@ import com.example.android_project.domain.model.TableAndClients
 import com.example.android_project.domain.model.TableItem
 import kotlinx.coroutines.flow.Flow
 
-class GetTablesWithClientsUseCase(private val tableDao: TableDao) {
-    operator fun invoke(): Flow<List<TableAndClients>> {
-        return tableDao.getTablesWithClients()
+class GetTableWithClientsUseCase(private val tableDao: TableDao) {
+    operator fun invoke(id: Int): TableAndClients {
+        return tableDao.getTableWithClients(id)
     }
 }
