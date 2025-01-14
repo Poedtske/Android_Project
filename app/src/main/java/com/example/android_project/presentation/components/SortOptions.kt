@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.android_project.R
 import com.example.android_project.classes.FoodVM
 
 
@@ -17,13 +19,13 @@ fun SortOptions(
     onSortOrderChange: (SortOrder) -> Unit
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
-        FoodRadioButton(text = "Name",
+        FoodRadioButton(text = stringResource(R.string.name),
             selected = foodOrder is SortByName,
             onSelect = { onSortOrderChange(SortByName) })
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        FoodRadioButton(text = "Price",
+        FoodRadioButton(text = stringResource(R.string.price),
             selected = foodOrder is SortByPrice,
             onSelect = { onSortOrderChange(SortByPrice) })
 

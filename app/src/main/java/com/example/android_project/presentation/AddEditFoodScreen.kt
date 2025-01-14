@@ -8,11 +8,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.android_project.R
 import com.example.android_project.classes.*
 import com.example.android_project.utils.Screen
+import com.google.android.gms.common.internal.StringResourceValueReader
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +63,7 @@ fun AddEditFoodScreen(
             // Title
             Text(
                 style = MaterialTheme.typography.headlineLarge,
-                text = "Add Food",
+                text = stringResource(R.string.add_food),
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(16.dp)
@@ -68,7 +72,7 @@ fun AddEditFoodScreen(
             // Name Input
             OutlinedTextField(
                 value = food.name,
-                label = { Text("Name") },
+                label = { Text(stringResource(R.string.name)) },
                 onValueChange = {
                     viewModel.onEvent(AddEditFoodEvent.EnteredName(it))
                 },
@@ -82,7 +86,7 @@ fun AddEditFoodScreen(
             // Price Input
             OutlinedTextField(
                 value = food.price.toString(),
-                label = { Text("Price") },
+                label = { Text(stringResource(R.string.price)) },
                 onValueChange = { input ->
                     val parsedPrice = input.toDoubleOrNull()
                     if (parsedPrice != null) {
@@ -90,7 +94,7 @@ fun AddEditFoodScreen(
                     }
                 },
                 singleLine = true,
-                textStyle = MaterialTheme.typography.headlineMedium.copy(color = Color.Black),
+                textStyle = MaterialTheme.typography.headlineMedium.copy(color = colorResource(R.color.text)),
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -99,9 +103,9 @@ fun AddEditFoodScreen(
             // Availability Checkbox
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Available",
+                    text = stringResource(R.string.available),
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    style = MaterialTheme.typography.headlineMedium.copy(color = Color.Black),
+                    style = MaterialTheme.typography.headlineMedium.copy(color = colorResource(R.color.text)),
                 )
                 Checkbox(
                     checked = food.availability is Available,
@@ -124,9 +128,9 @@ fun AddEditFoodScreen(
             ) {
                 OutlinedTextField(
                     readOnly = true,
-                    value = selectedCategory.name,
+                    value = stringResource(selectedCategory.displayName),
                     onValueChange = {},
-                    label = { Text("Category") },
+                    label = { Text(stringResource(R.string.category)) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCategory) },
                     modifier = Modifier.menuAnchor().fillMaxWidth()
                 )
@@ -136,7 +140,7 @@ fun AddEditFoodScreen(
                 ) {
                     FoodCategory.values().forEach { category ->
                         DropdownMenuItem(
-                            text = { Text(category.name) },
+                            text = { Text(stringResource(category.displayName)) },
                             onClick = {
                                 selectedCategory = category
                                 expandedCategory = false
@@ -159,9 +163,9 @@ fun AddEditFoodScreen(
             ) {
                 OutlinedTextField(
                     readOnly = true,
-                    value = selectedCourse.name,
+                    value = stringResource(id=selectedCourse.displayName),
                     onValueChange = {},
-                    label = { Text("Course") },
+                    label = { Text(stringResource(R.string.course)) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCourse) },
                     modifier = Modifier.menuAnchor().fillMaxWidth()
                 )
@@ -171,7 +175,7 @@ fun AddEditFoodScreen(
                 ) {
                     Course.values().forEach { course ->
                         DropdownMenuItem(
-                            text = { Text(course.name) },
+                            text = { Text(stringResource(id=course.displayName)) },
                             onClick = {
                                 selectedCourse = course
                                 expandedCourse = false

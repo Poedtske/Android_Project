@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -47,9 +48,14 @@ fun MainContent(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val logoUrl= if(isSystemInDarkTheme()){
+            "https://kfdemoedigevrienden.be/images/logoJeugd.png"
+        }else{
+            "https://kfdemoedigevrienden.be/images/logoFanfare.png"
+        }
         // Logo Image
         AsyncImage(
-            model = "https://kfdemoedigevrienden.be/images/logoFanfare.png",
+            model = logoUrl,
             contentDescription = "Logo Fanfare",
             modifier = Modifier
                 .fillMaxWidth(0.5f) // Adjust the size

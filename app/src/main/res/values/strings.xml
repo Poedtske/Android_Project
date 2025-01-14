@@ -4,7 +4,24 @@
     <string name="delete_food">Delete Food</string>
     <string name="bar">BAR</string>
     <string name="checkout">CHECKOUT</string>
+    <string name="table">Table</string>
+    <string name="none">None</string>
+    <string name="starter">Starter</string>
+    <string name="main_course">Main Course</string>
+    <string name="dessert">Dessert</string>
+    <string name="unknown">Unknown</string>
+    <string name="add_food">Add Food</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="available">Available</string>
+    <string name="category">Category</string>
+    <string name="course">Course</string>
 
+    <string name="category_salads">Salads</string>
+    <string name="category_soups">Soups</string>
+    <string name="category_seafood">SeaFood</string>
+    <string name="category_pasta">Pasta</string>
+    <string name="category_grill">Grill</string>
     <string name="category_soda">Sodas</string>
     <string name="category_beer">Beers</string>
     <string name="category_wine">Wines</string>
@@ -12,7 +29,6 @@
     <string name="category_snack">Snacks</string>
     <string name="category_dessert">Desserts</string>
     <string name="category_appetizer">Appetizers</string>
-    <string name="category_main_course">Main Course</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>

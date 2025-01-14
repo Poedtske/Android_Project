@@ -1,11 +1,14 @@
 package com.example.android_project.classes
 
-enum class FoodCategory(val displayName: String) {
-    SALADS("@string/category_salads"),
-    SOUPS("@string/category_soups"),
-    SEAFOOD("@string/category_seafood"),
-    PASTA("@string/category_pasta"),
-    GRILL("@string/category_grill");
+import com.example.android_project.R
+
+enum class FoodCategory(val displayName: Int) {
+    SALADS(R.string.category_salads),
+    SOUPS(R.string.category_soups),
+    SEAFOOD(R.string.category_seafood),
+    PASTA(R.string.category_pasta),
+    GRILL(R.string.category_grill),
+    UNKNOWN(R.string.unknown);
 
     // Simplified comparison function
     fun isType(type: FoodCategory): Boolean {
