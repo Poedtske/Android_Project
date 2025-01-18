@@ -6,7 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.example.android_project.domain.model.ClientItem
-import com.example.android_project.domain.model.ClientWithOrders
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,11 +23,4 @@ interface ClientDao {
     @Delete
     suspend fun deleteClientItem(clientItem: ClientItem)
 
-    @Transaction
-    @Query("SELECT * FROM Clients")
-    fun getClientsWithOrders(): Flow<List<ClientWithOrders>>
-
-    @Transaction
-    @Query("SELECT * FROM Clients WHERE clientId = :id")
-    fun getClientWithOrders(id:Int): ClientWithOrders?
 }

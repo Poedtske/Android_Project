@@ -59,6 +59,7 @@ kotlinx-serialization-json ={module="org.jetbrains.kotlinx:kotlinx-serialization
 squareup-okhttp3={group="com.squareup.okhttp3",name="okhttp",version.ref="okHttp"}
 squareup-retrofit={group="com.squareup.retrofit2",name="retrofit",version.ref="retroFit"}
 squareup-kotlinx-serialization={group="com.squareup.retrofit2",name="converter-kotlinx-serialization",version.ref="retroFit"}
+retrofit-gson-converter={group="com.squareup.retrofit2", name="converter-gson",version.ref="retroFit"}
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-bom={group="com.google.firebase", name="firebase-bom",version.ref="firebaseBom"}

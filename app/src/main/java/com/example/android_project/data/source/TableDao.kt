@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.example.android_project.domain.model.TableAndClients
 import com.example.android_project.domain.model.TableItem
 import kotlinx.coroutines.flow.Flow
 
@@ -24,11 +23,4 @@ interface TableDao {
     @Delete
     suspend fun deleteTableItem(clientItem: TableItem)
 
-    @Transaction
-    @Query("SELECT * FROM Tables")
-    fun getTablesWithClients(): Flow<List<TableAndClients>>
-
-    @Transaction
-    @Query("SELECT * FROM Tables WHERE tableId = :id")
-    fun getTableWithClients(id: Int): TableAndClients
 }

@@ -6,8 +6,6 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.example.android_project.domain.model.OrderItem
-import com.example.android_project.domain.model.OrderWithDrinks
-import com.example.android_project.domain.model.OrderWithFood
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -24,14 +22,5 @@ interface OrderDao {
 
     @Delete
     suspend fun deleteOrderItem(orderItem: OrderItem)
-
-    @Transaction
-    @Query("SELECT * FROM Orders")
-    fun getOrdersWithFood(): Flow<List<OrderWithFood>>
-
-    @Transaction
-    @Query("SELECT * FROM Orders")
-    fun getOrdersWithDrinks(): Flow<List<OrderWithDrinks>>
-
 
 }

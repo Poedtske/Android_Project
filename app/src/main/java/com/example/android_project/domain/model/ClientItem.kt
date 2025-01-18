@@ -14,13 +14,3 @@ data class ClientItem(
     @PrimaryKey(autoGenerate = true)val clientId: Int?=null,
     val associatedTableId: Int,
 )
-
-
-data class TableAndClients(
-    @Embedded val table: TableItem,
-    @Relation(
-        parentColumn = "tableId",
-        entityColumn = "associatedTableId"
-    )
-    val clients:List<ClientItem>
-)

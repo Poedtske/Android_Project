@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.android_project.api.FoodApiService
+import com.example.android_project.api.RetrofitInstance
 import com.example.android_project.data.source.RestaurantDatabase
 import com.example.android_project.domain.usecase.client.ClientsUseCases
 import com.example.android_project.domain.usecase.client.DeleteClientUseCase
@@ -65,11 +67,18 @@ object AppModule{
             })
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideFoodUseCases(db:RestaurantDatabase): FoodsUseCases {
+    fun provideFoodApiService(): FoodApiService {
+        return RetrofitInstance.api
+    }
+
+    @Provides
+    @Singleton
+    fun provideFoodUseCases(foodApiService: FoodApiService, db:RestaurantDatabase): FoodsUseCases {
         return FoodsUseCases(
-            getFoods = GetFoodsUseCase(db.foodDao),
+            getFoods = GetFoodsUseCase(foodApiService),
             getFood= GetFoodUseCase(db.foodDao),
             upsertFood = UpsertFoodUseCase(db.foodDao),
             deleteFood = DeleteFoodUseCase(db.foodDao)

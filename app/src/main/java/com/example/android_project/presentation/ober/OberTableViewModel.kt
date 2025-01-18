@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.ClientVM
 import com.example.android_project.classes.FoodVM
-import com.example.android_project.domain.model.TableAndClients
 import com.example.android_project.domain.usecase.client.ClientsUseCases
 import com.example.android_project.domain.usecase.table.TablesUseCases
 import com.example.android_project.presentation.components.FoodEvent
@@ -32,12 +31,12 @@ class OberTableViewModel @Inject constructor
     }
 
     private fun loadClients(id: Int) {
-        viewModelScope.launch {
-            val tableWithClientsEntity: TableAndClients = tableUseCases.getTableWithClientsUseCase(id)
-            val clients: List<ClientVM> = tableWithClientsEntity.clients.map { ClientVM.fromEntity(it) }
-
-            _clients.value=clients
-        }
+//        viewModelScope.launch {
+//            val tableWithClientsEntity: TableAndClients = tableUseCases.getTableWithClientsUseCase(id)
+//            val clients: List<ClientVM> = tableWithClientsEntity.clients.map { ClientVM.fromEntity(it) }
+//
+//            _clients.value=clients
+//        }
     }
 
 

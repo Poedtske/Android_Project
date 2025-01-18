@@ -1,6 +1,5 @@
 package com.example.android_project.domain.usecase
 
-import com.example.android_project.classes.FoodVM
 import com.example.android_project.data.source.FoodDao
 import com.example.android_project.domain.model.FoodItem
 import com.example.android_project.domain.model.FoodWithOrders
@@ -15,7 +14,7 @@ class MockDatabase: FoodDao {
     }
 
     override suspend fun getFoodItem(id: Int): FoodItem? {
-        return foods.find { it.foodId==id }
+        return foods.find { it.id==id }
     }
 
     override suspend fun upsertFoodItem(foodItem: FoodItem) {

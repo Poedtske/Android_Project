@@ -5,13 +5,11 @@ import androidx.room.RoomDatabase
 import com.example.android_project.domain.model.ClientItem
 import com.example.android_project.domain.model.DrinkItem
 import com.example.android_project.domain.model.FoodItem
-import com.example.android_project.domain.model.OrderDrinksCrossRef
-import com.example.android_project.domain.model.OrderFoodCrossRef
 import com.example.android_project.domain.model.OrderItem
 import com.example.android_project.domain.model.TableItem
 
 @Database(
-    entities = [FoodItem::class, DrinkItem::class, OrderItem::class,TableItem::class, ClientItem::class, OrderFoodCrossRef::class, OrderDrinksCrossRef::class],
+    entities = [FoodItem::class, DrinkItem::class, OrderItem::class,TableItem::class, ClientItem::class],
     version = 2)
 abstract class RestaurantDatabase:RoomDatabase() {
 

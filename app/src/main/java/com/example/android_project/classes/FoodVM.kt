@@ -19,12 +19,11 @@ data class FoodVM(
     fun toEntity(): FoodItem {
         val id = if(this.id==-1) null else this.id
         return FoodItem(
-            foodId = id,
+            id = id,
             name = this.name,
             img = this.img,
             price = this.price,
-            category = this.category,
-            course = this.course,
+            category = FoodCategory.UNKNOWN,
             availability = this.availability.toBoolean(),
         )
     }
@@ -32,12 +31,11 @@ data class FoodVM(
     companion object {
         fun fromEntity(entity: FoodItem): FoodVM {
             return FoodVM(
-                id=entity.foodId!!,
+                id=entity.id!!,
                 name=entity.name,
                 img = entity.img,
                 price = entity.price,
-                course = entity.course,
-                category = entity.category,
+                category = FoodCategory.UNKNOWN,
                 availability = Availability.fromBoolean(entity.availability)
             )
         }
