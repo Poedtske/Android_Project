@@ -8,8 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.android_project.classes.FoodVM
 import com.example.android_project.domain.usecase.food.FoodsUseCases
 import com.example.android_project.presentation.components.FoodEvent
-import com.example.android_project.presentation.components.SortByName
-import com.example.android_project.presentation.components.SortOrder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
@@ -23,39 +21,35 @@ class AdminListProductViewModel @Inject constructor
     private val _food: MutableState<List<FoodVM>> = mutableStateOf(emptyList())
     var food: State<List<FoodVM>> =_food
 
-    private var _sortOrder: MutableState<SortOrder> = mutableStateOf(SortByName)
-    var sortOrder: State<SortOrder> = _sortOrder
+
 
     var job: Job?=null
 
     init {
-        loadFood(sortOrder.value)
+        loadFood()
     }
 
-    private fun loadFood(sortOrder: SortOrder) {
+    private fun loadFood() {
         job?.cancel()
 
-        job=foodsUseCases.getFoods(sortOrder).onEach {
-            food->_food.value=food.map { FoodVM.fromEntity(it) }
+        job = foodsUseCases.getFoods().onEach { foods ->
+            _food.value = foods // Update the state here
         }.launchIn(viewModelScope)
     }
+
 
     fun onEvent(event: FoodEvent){
         when(event){
             is FoodEvent.Delete -> {
                 deleteFood(event.foodVM)
-                loadFood(sortOrder.value)
-            }
-            is FoodEvent.Order -> {
-                _sortOrder.value = event.order
-                loadFood(event.order)
+                loadFood()
             }
         }
     }
 
     private fun deleteFood(foodVM: FoodVM) {
         viewModelScope.launch {
-            foodsUseCases.deleteFood(foodVM.toEntity())
+            foodsUseCases.deleteFood(foodVM)
         }
 
     }

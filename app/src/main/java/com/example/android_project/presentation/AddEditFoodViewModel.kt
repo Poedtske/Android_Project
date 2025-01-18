@@ -1,43 +1,78 @@
 package com.example.android_project.presentation
 
 import android.util.Log
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android_project.R
+import com.example.android_project.classes.CategoryVM
 import com.example.android_project.classes.FoodVM
+import com.example.android_project.domain.usecase.category.CategoryUseCases
 import com.example.android_project.domain.usecase.food.FoodsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import java.lang.reflect.Modifier
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEditFoodViewModel @Inject constructor
-    (savedStateHandle: SavedStateHandle, private val foodsUseCases: FoodsUseCases) : ViewModel() {
+class AddEditFoodViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    private val foodsUseCases: FoodsUseCases,
+    private val categoryUseCases: CategoryUseCases
+) : ViewModel() {
 
     private val _food = mutableStateOf(FoodVM())
     val foodVM: State<FoodVM> = _food
 
-    private val _eventFlow= MutableSharedFlow<AddEditFoodUiEvent>()
-    val eventflow= _eventFlow.asSharedFlow()
+    private val _categories = mutableStateOf<List<CategoryVM>>(emptyList())
+    val categories: State<List<CategoryVM>> = _categories
 
-    private fun findFood(foodId: Int){
+    private val _eventFlow = MutableSharedFlow<AddEditFoodUiEvent>()
+    val eventflow = _eventFlow.asSharedFlow()
+
+    init {
+        val foodId = savedStateHandle.get<Int>("foodId") ?: -1
+        if (foodId != -1) {
+            findFood(foodId)
+        }
+        fetchCategories()
+    }
+
+    // Fetch food by ID
+    private fun findFood(foodId: Int) {
         viewModelScope.launch {
-            val foodEntity=foodsUseCases.getFood(foodId)
-            _food.value= foodEntity?.let { FoodVM.fromEntity(it)}?: FoodVM()
-            Log.d("FoodDebug",_food.value.toString())
-            Log.d("FoodDebug, VM",foodVM.toString())
+            val foodEntity = foodsUseCases.getFood(foodId)
+            _food.value = foodEntity!!
         }
     }
 
-    init {
-        val foodId= savedStateHandle.get<Int>("foodId")?:-1
-        findFood(foodId)
+    // Fetch categories from use case
+    private fun fetchCategories() {
+        viewModelScope.launch {
+            categoryUseCases.getCategories()
+                .catch { e -> Log.e("CategoryError", "Failed to fetch categories", e) } // Log errors
+                .collect { fetchedCategories ->
+                    _categories.value = fetchedCategories
+                }
+        }
     }
 
+    // Handle UI events
     fun onEvent(event: AddEditFoodEvent) {
         when (event) {
             is AddEditFoodEvent.EnteredName -> {
@@ -52,35 +87,43 @@ class AddEditFoodViewModel @Inject constructor
                 _food.value = _food.value.copy(category = event.category)
             }
 
-            is AddEditFoodEvent.CourseChanged -> {
-                _food.value = _food.value.copy(course = event.course)
-            }
-
             AddEditFoodEvent.SaveFood -> {
                 viewModelScope.launch {
-                    if(foodVM.value.name.isEmpty()||foodVM.value.price.isNaN()){
-                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, name or price is empty"))
-                    } else if(foodVM.value.price<=0.0){
-                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Unable to save Food, price is invalid"))
-                    }
-                    else{
-                        val entity = foodVM.value.toEntity()
-                        foodsUseCases.upsertFood(entity)
+                    if (validateFood()) {
+                        foodsUseCases.upsertFood(foodVM.value)
                         _eventFlow.emit(AddEditFoodUiEvent.SavedFood)
                     }
                 }
-
             }
 
             is AddEditFoodEvent.AvailabilityChanged -> {
                 _food.value = _food.value.copy(availability = event.availability)
+                Log.d("AvailabilityDebug", "Availability changed to: ${_food.value.availability}")
             }
+        }
+    }
+
+    // Validate food fields
+    private suspend fun validateFood(): Boolean {
+        return when {
+            foodVM.value.name.isEmpty() -> {
+                _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Name cannot be empty"))
+                false
+            }
+
+            foodVM.value.price.isNaN() || foodVM.value.price <= 0.0 -> {
+                _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Invalid price"))
+                false
+            }
+
+            else -> true
         }
     }
 }
 
+
+// UI Events for AddEditFood
 sealed interface AddEditFoodUiEvent {
     data class ShowMessage(val message: String) : AddEditFoodUiEvent
-    data object SavedFood:AddEditFoodUiEvent
+    data object SavedFood : AddEditFoodUiEvent
 }
-

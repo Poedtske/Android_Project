@@ -8,7 +8,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,7 +16,6 @@ import androidx.navigation.NavHostController
 import com.example.android_project.R
 import com.example.android_project.classes.*
 import com.example.android_project.utils.Screen
-import com.google.android.gms.common.internal.StringResourceValueReader
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,11 +24,10 @@ fun AddEditFoodScreen(
     navController: NavHostController,
     viewModel: AddEditFoodViewModel = hiltViewModel()
 ) {
-
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
-        snackbarHost = {SnackbarHost(snackbarHostState)},
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
@@ -44,17 +41,17 @@ fun AddEditFoodScreen(
 
         LaunchedEffect(true) {
             viewModel.eventflow.collectLatest { event ->
-                when(event){
+                when (event) {
                     AddEditFoodUiEvent.SavedFood -> navController.navigate(Screen.FoodListScreen.route)
-                    is AddEditFoodUiEvent.ShowMessage ->{
+                    is AddEditFoodUiEvent.ShowMessage -> {
                         snackbarHostState.showSnackbar(message = event.message)
                     }
                 }
-
             }
         }
 
         val food = viewModel.foodVM.value
+        val categories = viewModel.categories.value
 
         Column(
             modifier = Modifier
@@ -100,7 +97,7 @@ fun AddEditFoodScreen(
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
+            Log.d("Available Debug",food.availability.toString())
             // Availability Checkbox
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
@@ -123,14 +120,15 @@ fun AddEditFoodScreen(
             var expandedCategory by remember { mutableStateOf(false) }
             var selectedCategory = food.category
 
+            Log.d("CategoryDebug", categories.toString())
+
             ExposedDropdownMenuBox(
                 expanded = expandedCategory,
                 onExpandedChange = { expandedCategory = !expandedCategory }
             ) {
-                Log.d("CategoryDebug",selectedCategory.name)
                 OutlinedTextField(
                     readOnly = true,
-                    value = stringResource(selectedCategory.displayName),
+                    value = selectedCategory.name,
                     onValueChange = {},
                     label = { Text(stringResource(R.string.category)) },
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCategory) },
@@ -140,48 +138,13 @@ fun AddEditFoodScreen(
                     expanded = expandedCategory,
                     onDismissRequest = { expandedCategory = false }
                 ) {
-                    FoodCategory.values().forEach { category ->
+                    categories.forEach { category ->
                         DropdownMenuItem(
-                            text = { Text(stringResource(category.displayName)) },
+                            text = { Text(category.name) },
                             onClick = {
                                 selectedCategory = category
                                 expandedCategory = false
                                 viewModel.onEvent(AddEditFoodEvent.CategoryChanged(category))
-                            }
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Course Dropdown
-            var expandedCourse by remember { mutableStateOf(false) }
-            var selectedCourse = food.course
-
-            ExposedDropdownMenuBox(
-                expanded = expandedCourse,
-                onExpandedChange = { expandedCourse = !expandedCourse }
-            ) {
-                OutlinedTextField(
-                    readOnly = true,
-                    value = stringResource(id=selectedCourse.displayName),
-                    onValueChange = {},
-                    label = { Text(stringResource(R.string.course)) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedCourse) },
-                    modifier = Modifier.menuAnchor().fillMaxWidth()
-                )
-                ExposedDropdownMenu(
-                    expanded = expandedCourse,
-                    onDismissRequest = { expandedCourse = false }
-                ) {
-                    Course.values().forEach { course ->
-                        DropdownMenuItem(
-                            text = { Text(stringResource(id=course.displayName)) },
-                            onClick = {
-                                selectedCourse = course
-                                expandedCourse = false
-                                viewModel.onEvent(AddEditFoodEvent.CourseChanged(course))
                             }
                         )
                     }

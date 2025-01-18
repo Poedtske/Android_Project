@@ -28,7 +28,6 @@ import androidx.navigation.NavController
 
 import com.example.android_project.presentation.components.FoodCard
 import com.example.android_project.presentation.components.FoodEvent
-import com.example.android_project.presentation.components.SortOptions
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
@@ -55,9 +54,6 @@ fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminLis
             .padding(horizontal = 8.dp)
             .fillMaxSize()) {
 
-            SortOptions(foodOrder = foodViewModel.sortOrder.value, onSortOrderChange = {order ->
-                foodViewModel.onEvent(FoodEvent.Order(order))
-            })
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()

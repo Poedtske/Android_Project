@@ -1,6 +1,5 @@
 package com.example.android_project.classes
 
-import com.example.android_project.domain.model.DrinkItem
 import java.util.UUID
 import kotlin.random.Random
 
@@ -11,29 +10,4 @@ data class DrinkVM(
     var category: DrinkCategory,
     var availability: Availability,
     var price: Double,
-){
-    fun toEntity(): DrinkItem {
-        //val id = if(this.id==-1) null else this.id
-        return DrinkItem(
-            drinkId = id,
-            name = this.name,
-            img = this.img,
-            price = this.price,
-            category = this.category,
-            availability = this.availability.toBoolean(),
-        )
-    }
-
-    companion object {
-        fun fromEntity(entity: DrinkItem): DrinkVM {
-            return DrinkVM(
-                id=entity.drinkId!!,
-                name=entity.name,
-                img = entity.img,
-                price = entity.price,
-                category = entity.category,
-                availability = Availability.fromBoolean(entity.availability)
-            )
-        }
-    }
-}
+)

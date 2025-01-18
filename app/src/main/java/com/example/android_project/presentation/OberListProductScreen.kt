@@ -28,7 +28,6 @@ import androidx.navigation.NavController
 
 import com.example.android_project.presentation.components.FoodCard
 import com.example.android_project.presentation.components.FoodEvent
-import com.example.android_project.presentation.components.SortOptions
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
