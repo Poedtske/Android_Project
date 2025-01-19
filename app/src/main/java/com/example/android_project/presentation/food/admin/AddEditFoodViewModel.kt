@@ -77,9 +77,11 @@ class AddEditFoodViewModel @Inject constructor(
 
             AddEditFoodEvent.SaveFood -> {
                 viewModelScope.launch {
-                    if (validateFood()) {
+                    try{
                         foodsUseCases.upsertFood(foodVM.value)
                         _eventFlow.emit(AddEditFoodUiEvent.SavedFood)
+                    }catch (e:Exception){
+                        _eventFlow.emit(AddEditFoodUiEvent.ShowMessage(e.message?:"An error occurred"))
                     }
                 }
             }
@@ -91,22 +93,6 @@ class AddEditFoodViewModel @Inject constructor(
         }
     }
 
-    // Validate food fields
-    private suspend fun validateFood(): Boolean {
-        return when {
-            foodVM.value.name.isEmpty() -> {
-                _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Name cannot be empty"))
-                false
-            }
-
-            foodVM.value.price.isNaN() || foodVM.value.price <= 0.0 -> {
-                _eventFlow.emit(AddEditFoodUiEvent.ShowMessage("Invalid price"))
-                false
-            }
-
-            else -> true
-        }
-    }
 }
 
 
