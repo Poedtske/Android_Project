@@ -1,9 +1,7 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.food.admin
 
-import com.example.android_project.classes.Course
 import com.example.android_project.classes.Availability
 import com.example.android_project.classes.CategoryVM
-import com.example.android_project.classes.FoodCategory
 
 sealed interface AddEditFoodEvent {
     data class EnteredName(val name: String) : AddEditFoodEvent

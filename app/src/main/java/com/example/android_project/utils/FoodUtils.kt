@@ -1,4 +1,6 @@
 package com.example.android_project.utils
 
+import kotlin.Exception
 
-class FoodException(message: String):Throwable(message)
+
+class Exception(message: String):Exception(message)

@@ -4,7 +4,7 @@ import com.example.android_project.classes.Course
 import com.example.android_project.classes.FoodCategory
 import com.example.android_project.domain.model.FoodItem
 import com.example.android_project.domain.usecase.food.UpsertFoodUseCase
-import com.example.android_project.utils.FoodException
+import com.example.android_project.utils.Exception
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
@@ -30,21 +30,21 @@ class UpsertFoodUseCaseTest {
         }
     }
 
-    @Test(expected = FoodException::class)
+    @Test(expected = Exception::class)
     fun `Food should not be added because invallid name`() {
         runBlocking {
             upsertFoodUseCase(FoodItem(1,"","placeholder",12.5,FoodCategory.PASTA,Course.MAIN,true))
         }
     }
 
-    @Test(expected = FoodException::class)
+    @Test(expected = Exception::class)
     fun `Food should not be added because invallid price`() {
         runBlocking {
             upsertFoodUseCase(FoodItem(1,"Spaghetti","placeholder",0.0,FoodCategory.PASTA,Course.MAIN,true))
         }
     }
 
-    @Test(expected = FoodException::class)
+    @Test(expected = Exception::class)
     fun `Food should not be added because invallid price and name`() {
         runBlocking {
             upsertFoodUseCase(FoodItem(1,"","placeholder",0.0,FoodCategory.PASTA,Course.MAIN,true))

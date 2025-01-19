@@ -1,32 +1,20 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.food.admin
 
 import android.util.Log
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.android_project.R
 import com.example.android_project.classes.CategoryVM
 import com.example.android_project.classes.FoodVM
 import com.example.android_project.domain.usecase.category.CategoryUseCases
 import com.example.android_project.domain.usecase.food.FoodsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import java.lang.reflect.Modifier
 import javax.inject.Inject
 
 @HiltViewModel

@@ -1,4 +1,4 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.food.admin
 
 import android.util.Log
 import androidx.compose.foundation.layout.*

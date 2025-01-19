@@ -1,4 +1,4 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.category.admin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,14 +25,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.android_project.presentation.components.CategoryCard
+import com.example.android_project.presentation.components.CategoryEvent
 
-import com.example.android_project.presentation.components.FoodCard
-import com.example.android_project.presentation.components.FoodEvent
+
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
 @Composable
-fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminListProductViewModel = hiltViewModel()) {
+fun AdminListCategoriesScreen(navController: NavController, viewModel: AdminListCategoryViewModel = hiltViewModel()) {
 
     val snackbarHostState = remember {SnackbarHostState()}
     val scope = rememberCoroutineScope()
@@ -41,11 +42,11 @@ fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminLis
         snackbarHost = {SnackbarHost(snackbarHostState)},
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                navController.navigate(Screen.AddEditFoodScreen.route)
+                navController.navigate(Screen.AddEditCategoryScreen.route)
             },
                 modifier = Modifier
                     .background(Color.White)) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add a food item")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add a category")
             }
         }
     ) { contentPadding ->
@@ -58,21 +59,21 @@ fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminLis
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                items(foodViewModel.food.value.chunked(2)) { foodPair -> // Chunk the list into pairs of 2
+                items(viewModel.category.value.chunked(2)) { pair -> // Chunk the list into pairs of 2
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(bottom = 8.dp), // Adjust bottom padding for spacing
                         horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between cards
                     ) {
-                        foodPair.forEach { food ->
+                        pair.forEach { category ->
                             // Each card takes half the width
-                            FoodCard(foodVM = food, modifier = Modifier.weight(1f).clickable {
-                                navController.navigate(Screen.AddEditFoodScreen.route + "?foodId=${food.id}")
+                            CategoryCard(categorieVM = category, modifier = Modifier.weight(1f).clickable {
+                                navController.navigate(Screen.AddEditCategoryScreen.route + "?categoryId=${category.id}")
                             }){
-                                foodViewModel.onEvent(FoodEvent.Delete(food))
+                                viewModel.onEvent(CategoryEvent.Delete(category))
                                 scope.launch {
-                                    snackbarHostState.showSnackbar("Food item was deleted successfully")
+                                    snackbarHostState.showSnackbar("Category was deleted successfully")
                                 }
 
                             }

@@ -1,5 +1,6 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.food.admin
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,27 +13,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
 import com.example.android_project.presentation.components.FoodCard
 import com.example.android_project.presentation.components.FoodEvent
-import com.example.android_project.presentation.food.admin.AdminListProductViewModel
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
 @Composable
-fun OberListProductsScreen(foodViewModel: AdminListProductViewModel, navController: NavController) {
+fun AdminListProductsScreen(navController: NavController,foodViewModel: AdminListProductViewModel = hiltViewModel()) {
 
     val snackbarHostState = remember {SnackbarHostState()}
     val scope = rememberCoroutineScope()
 
     Scaffold(
         snackbarHost = {SnackbarHost(snackbarHostState)},
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
+                navController.navigate(Screen.AddEditFoodScreen.route)
+            },
+                modifier = Modifier
+                    .background(Color.White)) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add a food item")
+            }
+        }
     ) { contentPadding ->
         Column(modifier = Modifier
             .padding(contentPadding)
@@ -51,7 +66,6 @@ fun OberListProductsScreen(foodViewModel: AdminListProductViewModel, navControll
                         horizontalArrangement = Arrangement.spacedBy(8.dp) // Space between cards
                     ) {
                         foodPair.forEach { food ->
-                            println("foodId: "+food.id)
                             // Each card takes half the width
                             FoodCard(foodVM = food, modifier = Modifier.weight(1f).clickable {
                                 navController.navigate(Screen.AddEditFoodScreen.route + "?foodId=${food.id}")

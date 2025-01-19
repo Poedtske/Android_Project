@@ -1,12 +1,15 @@
-package com.example.android_project.presentation
+package com.example.android_project.presentation.food.admin
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android_project.classes.CategoryVM
 import com.example.android_project.classes.FoodVM
+import com.example.android_project.domain.usecase.category.CategoryUseCases
 import com.example.android_project.domain.usecase.food.FoodsUseCases
+import com.example.android_project.presentation.components.CategoryEvent
 import com.example.android_project.presentation.components.FoodEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

@@ -17,6 +17,10 @@
     <string name="available">Beschikbaar</string>
     <string name="category">Categorie</string>
     <string name="course">Gang</string>
+    <string name="img">Afbeelding</string>
+    <string name="add_category">Categorie Toevoegen</string>
+
+
 
     <string name="category_salads">Salades</string>
     <string name="category_soups">Soepen</string>
