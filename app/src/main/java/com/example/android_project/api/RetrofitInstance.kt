@@ -21,4 +21,28 @@ object RetrofitInstance {
             .build()
             .create(CategoryApiService::class.java)
     }
+
+    val clientApiService: ClientApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ClientApiService::class.java)
+    }
+
+    val orderApiService: OrderApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(OrderApiService::class.java)
+    }
+
+    val tableApiService: TableApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(TableApiService::class.java)
+    }
 }

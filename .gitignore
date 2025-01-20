@@ -13,6 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-app/src/main/java/com/example/android_project/api/FoodApi.kt
-app/src/main/java/com/example/android_project/api/Constants.kt
 app/src/main/java/com/example/android_project/api/Constants.kt

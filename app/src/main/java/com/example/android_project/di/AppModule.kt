@@ -58,6 +58,24 @@ object AppModule{
 
     @Provides
     @Singleton
+    fun provideClientApiService(): ClientApiService {
+        return RetrofitInstance.clientApiService
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderApiService(): OrderApiService {
+        return RetrofitInstance.orderApiService
+    }
+
+    @Provides
+    @Singleton
+    fun provideTableApiService(): TableApiService {
+        return RetrofitInstance.tableApiService
+    }
+
+    @Provides
+    @Singleton
     fun provideFoodUseCases(foodApiService: FoodApiService): FoodsUseCases {
         return FoodsUseCases(
             getFoods = GetFoodsUseCase(foodApiService),

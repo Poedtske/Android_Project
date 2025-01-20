@@ -40,7 +40,7 @@ class RestaurantLayout : AppCompatActivity() {
     private fun navigateToTableDetail(tableId: String) {
         val cleanedTableId = tableId.replace("table", "") // Removes "table" from the string
         val intent = Intent(this, OberTableView::class.java)
-        intent.putExtra("TABLE_ID", cleanedTableId)
+        intent.putExtra("TABLE_ID", cleanedTableId.toIntOrNull())
         startActivity(intent)
     }
 

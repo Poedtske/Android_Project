@@ -29,6 +29,8 @@ import com.example.android_project.presentation.category.admin.AddEditCategorySc
 import com.example.android_project.presentation.category.admin.AdminListCategoriesScreen
 import com.example.android_project.presentation.food.admin.AddEditFoodScreen
 import com.example.android_project.presentation.food.admin.AdminListProductsScreen
+import com.example.android_project.presentation.ober.client.AddEditClientScreen
+import com.example.android_project.presentation.ober.table.TableOberScreen
 import com.example.android_project.ui.theme.Android_ProjectTheme
 import com.example.android_project.utils.Screen
 
@@ -39,6 +41,7 @@ class OberTableView : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
+            val tableId= intent.getIntExtra("TABLE_ID",-1)?:-1
             com.example.android_project.ui.theme.Android_ProjectTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -46,39 +49,51 @@ class OberTableView : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = Screen.FoodListScreen.route,
+                        startDestination = Screen.TableOberScreen.route  + "?tableId=$tableId",
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable(route = Screen.FoodListScreen.route) {
-                            AdminListProductsScreen(navController)
-                        }
-                        composable(route = Screen.CategoriesListScreen.route) {
-                            AdminListCategoriesScreen(navController)
-                        }
+//                        composable(route = Screen.FoodListScreen.route) {
+//                            AdminListProductsScreen(navController)
+//                        }
+//                        composable(route = Screen.CategoriesListScreen.route) {
+//                            AdminListCategoriesScreen(navController)
+//                        }
                         composable(
-                            route = Screen.AddEditFoodScreen.route + "?foodId={foodId}",
+                            route = Screen.TableOberScreen.route + "?tableId={tableId}",
                             arguments = listOf(
-                                navArgument(name = "foodId") {
+                                navArgument(name = "tableId") {
                                     type = NavType.IntType
                                     defaultValue = -1
                                 }
                             )
                         ) { navBackStackEntry ->
-
-                            AddEditFoodScreen(navController)
+                            val passedTableId = navBackStackEntry.arguments?.getInt("tableId") ?: "-1"
+                            TableOberScreen(navController)
                         }
-                        composable(
-                            route = Screen.AddEditCategoryScreen.route + "?categoryId={categoryId}",
-                            arguments = listOf(
-                                navArgument(name = "categoryId") {
-                                    type = NavType.IntType
-                                    defaultValue = -1
-                                }
-                            )
-                        ) { navBackStackEntry ->
-
-                            AddEditCategoryScreen(navController)
-                        }
+//                        composable(
+//                            route = Screen.AddEditClientScreen.route + "?clientId={clientId}",
+//                            arguments = listOf(
+//                                navArgument(name = "clientId") {
+//                                    type = NavType.IntType
+//                                    defaultValue = -1
+//                                }
+//                            )
+//                        ) { navBackStackEntry ->
+//
+//                            AddEditClientScreen(navController)
+//                        }
+//                        composable(
+//                            route = Screen.AddEditCategoryScreen.route + "?categoryId={categoryId}",
+//                            arguments = listOf(
+//                                navArgument(name = "categoryId") {
+//                                    type = NavType.IntType
+//                                    defaultValue = -1
+//                                }
+//                            )
+//                        ) { navBackStackEntry ->
+//
+//                            AddEditCategoryScreen(navController)
+//                        }
                     }
                 }
             }
