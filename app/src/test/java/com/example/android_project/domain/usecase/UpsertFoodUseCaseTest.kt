@@ -1,7 +1,5 @@
 package com.example.android_project.domain.usecase
 
-import com.example.android_project.classes.Course
-import com.example.android_project.classes.FoodCategory
 import com.example.android_project.domain.model.FoodItem
 import com.example.android_project.domain.usecase.food.UpsertFoodUseCase
 import com.example.android_project.utils.Exception

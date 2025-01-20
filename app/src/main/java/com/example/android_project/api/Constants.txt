@@ -1,0 +1,3 @@
+package com.example.android_project.api
+
+val API_KEY:String="apikey"
