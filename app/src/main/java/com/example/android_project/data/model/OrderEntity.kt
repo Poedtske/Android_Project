@@ -1,11 +1,8 @@
 package com.example.android_project.data.model
 
-import com.example.android_project.classes.CategoryVM
 import com.example.android_project.classes.ClientVM
 import com.example.android_project.classes.FoodVM
 import com.example.android_project.classes.OrderVM
-import java.util.UUID
-import kotlin.random.Random
 
 data class OrderEntity(
     val id: Int = -1,

@@ -8,7 +8,7 @@ class GetFoodUseCase(private val foodApiService: FoodApiService) {
     suspend operator fun invoke(foodId: Int): FoodVM? {
         return try {
             // Fetch the food item from the API
-            val foodEntity:FoodEntity = foodApiService.getFoodById(foodId.toString())
+            val foodEntity:FoodEntity = foodApiService.getFoodById(foodId.toString()).toEntity()
             foodEntity.toVM()
         } catch (e: Exception) {
             // Handle exceptions (e.g., network issues) and return null if something goes wrong

@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.android_project.utils.Screen
+
 
 class RestaurantLayout : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

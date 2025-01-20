@@ -16,7 +16,7 @@ import com.example.android_project.R
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun AddEditCategoryScreen(
     navController: NavHostController,

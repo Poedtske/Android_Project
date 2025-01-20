@@ -6,7 +6,7 @@ import com.example.android_project.classes.TableVM
 
 data class TableEntity(
     val id:Int=-1,
-    val clients:Set<ClientVM> = emptySet()
+    val clients:List<ClientVM> = emptyList()
 ) {
     fun toVM(): TableVM {
         //val id = if(this.id==-1) null else this.id

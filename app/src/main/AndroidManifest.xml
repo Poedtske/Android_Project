@@ -25,9 +25,6 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".classes.view"
-            android:exported="false" />
-        <activity
             android:name=".ProductsView"
             android:exported="false"
             android:label="@string/title_activity_products_view"

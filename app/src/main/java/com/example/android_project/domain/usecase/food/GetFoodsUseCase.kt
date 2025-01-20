@@ -12,12 +12,14 @@ import kotlinx.coroutines.flow.flow
 class GetFoodsUseCase(private val foodApiService: FoodApiService) {
     operator fun invoke(): Flow<List<FoodVM>> = flow {
         // Fetch data from the API and emit the result
-        val foodEntities = foodApiService.getFoods()
-        emit(foodEntities.map { food -> food.toVM() })
-    }.catch { e ->
-        // Catch any exception that occurs in the flow and log it
-        Log.d("FoodListException", e.toString())
-        // Emit an empty list as a fallback
-        emit(emptyList())
+        try {
+            val foodEntities = foodApiService.getFoods()
+            emit(foodEntities.map { food -> food})
+        }
+        catch (e: Exception) {
+            Log.d("ClientListException", e.toString())
+            emit(emptyList()) // Emit an empty list on failure
+        }
     }
+
 }

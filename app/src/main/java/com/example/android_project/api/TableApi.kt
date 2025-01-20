@@ -1,7 +1,6 @@
 package com.example.android_project.api
 
 
-import com.example.android_project.classes.TableVM
 import com.example.android_project.data.model.TableEntity
 
 import retrofit2.http.Body

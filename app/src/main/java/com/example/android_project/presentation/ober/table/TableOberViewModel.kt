@@ -24,10 +24,16 @@ class TableOberViewModel @Inject constructor(private val tableUseCases: TableUse
         loadTable(tableId)
     }
 
-    fun loadTable(id:Int) {
+    fun loadTable(id: Int) {
         viewModelScope.launch {
-            val tableEntity = tableUseCases.getTable(id)
-            _table.value = tableEntity!!
+            val tempEntity = tableUseCases.getTable(id)
+            if (tempEntity != null) {
+                // Filter clients where 'paid' is false and sort by 'id'
+                val filteredClients = tempEntity.clients.filter { !it.paid }.sortedBy { it.id }
+                // Update tableEntity with filtered and sorted clients
+                val tableEntity= TableVM(tempEntity.id,filteredClients)
+                _table.value = tableEntity!!
+            }
         }
     }
 

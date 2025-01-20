@@ -1,7 +1,5 @@
 package com.example.android_project.api
 
-
-import com.example.android_project.classes.ClientVM
 import com.example.android_project.data.model.ClientEntity
 
 import retrofit2.http.Body

@@ -33,8 +33,10 @@ import com.example.android_project.presentation.ober.client.AddEditClientScreen
 import com.example.android_project.presentation.ober.table.TableOberScreen
 import com.example.android_project.ui.theme.Android_ProjectTheme
 import com.example.android_project.utils.Screen
+import dagger.hilt.android.AndroidEntryPoint
 
 //name = "${stringResource(R.string.table)} id= ${intent.getStringExtra("TABLE_ID").orEmpty()}"
+@AndroidEntryPoint
 class OberTableView : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +70,7 @@ class OberTableView : ComponentActivity() {
                             )
                         ) { navBackStackEntry ->
                             val passedTableId = navBackStackEntry.arguments?.getInt("tableId") ?: "-1"
-                            TableOberScreen(navController)
+                            TableOberScreen(navController, tableId)
                         }
 //                        composable(
 //                            route = Screen.AddEditClientScreen.route + "?clientId={clientId}",

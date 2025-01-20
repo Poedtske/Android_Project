@@ -32,6 +32,7 @@ import com.example.android_project.presentation.components.ClientEvent
 import com.example.android_project.utils.Screen
 import kotlinx.coroutines.launch
 
+
 @Composable
 fun TableOberScreen(navController: NavController, tableId: Int, viewModel: TableOberViewModel= hiltViewModel()) {
     val snackbarHostState = remember{ SnackbarHostState() }

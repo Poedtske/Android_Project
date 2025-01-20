@@ -2,7 +2,6 @@ package com.example.android_project.api
 
 import com.example.android_project.classes.CategoryVM
 import com.example.android_project.data.model.CategoryEntity
-import com.example.android_project.data.model.FoodEntity
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

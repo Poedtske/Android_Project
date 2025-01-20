@@ -1,6 +1,5 @@
 package com.example.android_project.data.model;
 
-import com.example.android_project.classes.Availability
 import com.example.android_project.classes.CategoryVM
 import com.example.android_project.classes.FoodVM
 

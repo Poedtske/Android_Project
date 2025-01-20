@@ -19,8 +19,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.android_project.ProductsView
-import com.example.android_project.RestaurantLayout
 import com.example.android_project.ui.theme.Android_ProjectTheme
 
 class MainActivity : ComponentActivity() {
